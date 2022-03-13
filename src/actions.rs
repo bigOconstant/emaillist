@@ -27,8 +27,6 @@ pub fn find_user_by_email(
 ) -> Result<Option<models::User>, DbError> {
 use crate::schema::users::dsl::*;
 
-println!("Finding user with email:{}",email_in);
-
 let user = users
     .filter(email.eq(email_in.clone()))
     .first::<models::User>(conn)
@@ -36,22 +34,16 @@ let user = users
 Ok(user)
 }
 
-/// Run query using Diesel to insert a new database row and return the result.
 pub fn insert_new_user(
-    // prevent collision with `name` column imported inside the function
     nu: &NewUser,
     conn: &SqliteConnection,
 ) -> Result<Option<models::User>, DbError> {
-    // It is common when using Diesel with Actix Web to import schema-related
-    // modules inside a function's scope (rather than the normal module's scope)
-    // to prevent import collisions and namespace pollution.
     use crate::schema::users::dsl::*;
 
     let user_exit_check = find_user_by_email(&nu.email.clone(),conn)?;
     
     // If inserting new user and it's unsubscribed just resubscribe
     if let Some(user_exit_check) = user_exit_check {
-        println!("found user! UUID{}",user_exit_check.id);
         return update_user_subscription_status(true,conn,&user_exit_check.id);
     } else{
 
@@ -63,9 +55,7 @@ pub fn insert_new_user(
         subscribed:true,
     };
 
-    println!("inserting:{}",new_user.email.clone());
     diesel::insert_into(users).values(&new_user).execute(conn)?;
-    println!("done inserting now returning!");
     return find_user_by_id(new_user.id.clone(),conn);
 }
 }

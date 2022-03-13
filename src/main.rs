@@ -127,7 +127,6 @@ async fn add_user(
     let email_regex = Regex::new(r"^([a-z0-9_+]([a-z0-9_+.]*[a-z0-9_+])?)@([a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6})").unwrap();
 
     let is_email_valid = email_regex.is_match(&params.email);
-    println!("email:{} name:{} {}",params.email,params.firstname,params.lastname);
     let s:String;
     if params.firstname.is_empty() || params.lastname.is_empty() || !is_email_valid {
         ctx.insert("error",&true);
