@@ -42,4 +42,11 @@ go to `localhost:8080` to add a new user to your subscription list.
 
 ![](https://files.catbox.moe/6uknim.png)
 
+## Why SQLite, why not postgres?
+
+It's a simple email list. SQLite is more than capable of handling it. With sqlite there are no external dependencies. This app can run just about anywhere. 
+
+## Why did you use templates and not a SPA?
+
+Again this is a simple email list. Transpiling hundreds of lines of Type script to generate a huge front end npm black hole just so someone can click unsubscribe is wasteful. 
 
