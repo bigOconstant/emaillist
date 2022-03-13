@@ -15,9 +15,6 @@ This can be obtained from examining the crud.db file. Which is the database file
 After a user signs up or you insert their record in the database they can then update their subscription preferences at `/user/<uuid>`
 
 
-# License
-
-gnu 3
 
 # Environment variables
 
