@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Join the {{app_name}} Mailing List</title>
+</head>
+<body>
+    <section class="section">
+        {%if error == true %}
+        <article class="message is-danger">
+            <div class="message-header">
+              <p>Error</p>
+            </div>
+            <div class="message-body">
+              Please insure the first name, last name is included and that you have entered a valid email address. 
+            </div>
+          </article>
+          {%else%}
+          {% endif %}
+        <div class="container">
+            <h1 class="title">Join the {{app_name}} Mailing List</h1>
+            <form action="/join" method="post">
+                
+                <div class="field">
+                    <label class="label">First Name</label>
+                    <div class="control">
+                    <input id="firstname" name="firstname" class="input" type="text" placeholder="e.g John">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Last Name</label>
+                    <div class="control">
+                    <input id="lastname" name="lastname" class="input" type="text" placeholder="e.g Smith">
+                    </div>
+                </div>
+                
+                <div class="field">
+                    <label class="label">Email</label>
+                    <div class="control">
+                    <input id="email" name="email" class="input" type="email" placeholder="e.g. JohnSmith@gmail.com">
+                    </div>
+                </div>
+                <input class="button is-primary"  type="submit" value="Join">
+                
+            </form>
+        </div>
+    </section>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Email Unsubscribe</title>
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+    {%if email != "" %}
+    <h1 class="title">Subscribe or Unsubscribe to the {{app_name}} Newsletter</h1>
+    <h2>Hi, {{ first_name }} {{last_name}} at {{email}}!</h2>
+    <p>To unsubscribe, unclick the checkbox and click Update</p>
+    <form action="/subscribe" method="post">
+        <div class="field">
+            <div class="control">
+                {% if checked %}
+                <input class="radio" type="checkbox" id="subscribed" name="subscribed" checked='checked'>
+                {%else%}
+                <input class="radio" type="checkbox" id="subscribed" name="subscribed">
+                {% endif %} 
+                Subscribed
+              </label>
+
+            </div>
+          </div>
+        <input class="button is-primary"  type="submit" value="Update">
+        <input type="hidden" id="id" name="id" value="{{UUID}}">
+      </form>  
+    {%else%}
+      <h1>User not found</h1>
+    {% endif %}
+    </div>
+</section>
+</body>
+</html>

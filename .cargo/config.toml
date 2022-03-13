@@ -1,0 +1,5 @@
+[env]
+DATABASE_URL = "crud.db"
+APP_NAME = "APPNAME"
+PORT = "8080"
+IPBIND = "0.0.0.0"
