@@ -33,6 +33,14 @@ cargo up
 
 go to `localhost:8080` to add a new user to your subscription list.
 
+## Docker
+
+A Docker file and docker-compose.yml file are provided.
+
+Run with `docker-compose -f Docker/docker-compose.yml up`
+
+the data base file will be in `volumes/crud.db`
+
 
 # UI
 
