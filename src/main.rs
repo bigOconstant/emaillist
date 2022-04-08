@@ -41,33 +41,24 @@ async fn get_user(
     }).await?
     .map_err(actix_web::error::ErrorInternalServerError)?;
 
-    let mut email:String = "".to_string();
-    let mut first_name:String = "".to_string();
-    let mut last_name:String = "".to_string();
-    let mut checked:bool = false;
-    let mut id = "".to_string();
-
-    if let Some(user) = user {
-        email = user.email;
-        checked = user.subscribed;
-        id = user.id;
-        first_name = user.first_name;
-        last_name = user.last_name;
-        
-    }else{
-        //Do something here
-    }
-
     let mut ctx = tera::Context::new();
-        ctx.insert("email", &email);
-        ctx.insert("first_name", &first_name);
-        ctx.insert("last_name", &last_name);
-        ctx.insert("checked",&checked);
-        ctx.insert("UUID",&id);
-        ctx.insert("text", "Welcome!");
+    let mut s = "".to_string();
+    if let Some(user) = user {
+        ctx.insert("email", &user.email);
+        ctx.insert("first_name", &user.first_name);
+        ctx.insert("last_name", &user.last_name);
+        ctx.insert("checked",&user.subscribed);
+        ctx.insert("UUID",&user.id);
+        
         ctx.insert("app_name",&context.app_name.clone());
-       let s= tmpl.render("user.html", &ctx)
-            .map_err(|_| error::ErrorInternalServerError("Template error"))?;
+        let s= tmpl.render("user.html", &ctx)
+        .map_err(|_| error::ErrorInternalServerError("Template error"))?;
+    }else {
+        ctx.insert("error", "invalid user");
+        ctx.insert("status_code", "");
+        s = tmpl.render("error.html",&ctx).map_err(|_| error::ErrorInternalServerError("Template error"))?;
+    }
+      
 
      Ok(HttpResponse::Ok().content_type("text/html").body(s))
 
@@ -135,8 +126,6 @@ async fn add_user(
     .map_err(|_| error::ErrorInternalServerError("Template error"))?;
     }
     
-    
-
     else {
         let n = models::NewUser {
             email:params.email.clone(),
